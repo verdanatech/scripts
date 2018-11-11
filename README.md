@@ -5,9 +5,10 @@ To install,
 
 Fusioninventory:
 
-<code># wget https://verdanatech.com/scripts/fusioninstall.sh
-<code># chmod +x fusioninstall.sh 
-<code># ./fusioninstall.sh </code>
-
+<code>
+# wget https://verdanatech.com/scripts/fusioninstall.sh
+# chmod +x fusioninstall.sh 
+# ./fusioninstall.sh </code>
+</code>
 - - -
 ..and be happy!
