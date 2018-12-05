@@ -2,7 +2,7 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: fusioninstall.sh
-#	@versao: 1.0.1
+#	@versao: 1.0.2
 #	@Data 11 de Novembro de 2018
 #	@Copyright: Verdanatech Soluções em TI, 2018
 # --------------------------------------------------------------------------
@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Nov 11, 2018"
-TITULO="Verdanatech FusionInstall - v.1.0.1"
+versionDate="Dez 04, 2018"
+TITULO="Verdanatech FusionInstall - v.1.0.2"
 BANNER="http://www.verdanatech.com"
 
 FUSION_DEB_LINK="http://debian.fusioninventory.org/downloads/fusioninventory-agent_2.4-2_all.deb"
@@ -120,60 +120,61 @@ INSTALL ()
 	source /etc/os-release ; [ $? -ne 0 ] && erroDetect
 		
 	case $ID in
-	
+
 		debian)
 	
-		case $VERSION_ID in
+			case $VERSION_ID in
 		
-			9 | 8)
+				9 | 8)
 		
-				clear
-				echo "System GNU/Linux $PRETTY_NAME detect..."
-				sleep 2
-				echo "Starting fusioninstall.sh by Verdanatech"
-				echo "-----------------"; sleep 1;
+					clear
+					echo "System GNU/Linux $PRETTY_NAME detect..."
+					sleep 2
+					echo "Starting fusioninstall.sh by Verdanatech"
+					echo "-----------------"; sleep 1;
 
-				# Download and install fusioninventory-agent
-				erroDescription="Erro to get fusioninventory-agent"
+					# Download and install fusioninventory-agent
+					erroDescription="Erro to get fusioninventory-agent"
 
-				wget -O fusioninventory-agent.deb $FUSION_DEB_LINK; [ $? -ne 0 ] && erroDetect
+					wget -O fusioninventory-agent.deb $FUSION_DEB_LINK; [ $? -ne 0 ] && erroDetect
 
-				dpkg -i fusioninventory-agent.deb
+					erroDescription="Erro to run DPKG"
+					dpkg -i fusioninventory-agent.deb; [ $? -ne 0 ] && erroDetect
 				
-				erroDescription="Error to resolve dependencies"
-				apt-get -f install -y; [ $? -ne 0 ] && erroDetect
-
-			
-			;;
+					erroDescription="Error to resolve dependencies"
+					apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+	
+				
+				;;
 
 			*)
 				erroDescription="Operating system not supported."
 				erroDetect				
 			;;
 		
-		esac
+			esac
 
 		;;
 		
 		centos)
 	
-		case $VERSION_ID in
+			case $VERSION_ID in
 		
-			7)
+				7)
 
-				clear
-				echo "System GNU/Linux $PRETTY_NAME detect..."
-				sleep 2
-				echo "Starting fusioninstall.sh by Verdanatech"
-				echo "-----------------"; sleep 1
+					clear
+					echo "System GNU/Linux $PRETTY_NAME detect..."
+					sleep 2
+					echo "Starting fusioninstall.sh by Verdanatech"
+					echo "-----------------"; sleep 1
 
-				# Add perl repository to resolv dependencies
-				erroDescription="Erro to  add EPEL repository!"
-				yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; [ $? -ne 0 ] && erroDetect
+					# Add perl repository to resolv dependencies
+					erroDescription="Erro to  add EPEL repository!"
+					yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; [ $? -ne 0 ] && erroDetect
 
-				# Add fusioninventory repository
-				erroDescription="Erro to create fusioninventory repository!"
-				echo -e "[trasher-fusioninventory-agent]
+					# Add fusioninventory repository
+					erroDescription="Erro to create fusioninventory repository!"
+					echo -e "[trasher-fusioninventory-agent]
 name=Copr repo for fusioninventory-agent owned by trasher
 baseurl=https://copr-be.cloud.fedoraproject.org/results/trasher/fusioninventory-agent/epel-7-\$basearch/
 type=rpm-md
@@ -185,41 +186,50 @@ enabled=1
 enabled_metadata=1
 " > /etc/yum.repos.d/copr.fusion.repo; [ $? -ne 0 ] && erroDetect
 
-				# Install fusioninventory-agent
-				yum install -y fusioninventory-agent
-			
-			;;
+					# Install fusioninventory-agent
+					yum install -y fusioninventory-agent
+				
+				;;
 
-			*)
-				erroDescription="Operating system not supported."
-				erroDetect				
-			;;
+				*)
+					erroDescription="Operating system not supported."
+					erroDetect				
+				;;
 		
-		esac
+			esac
 
 		;;
 	
 		ubuntu)
-	
-		case $VERSION_ID in
-		
-			18.10)
-				erroDescription="Operating system not supported."
-				erroDetect
-			
-			;;
-		
-		esac
 
-		;;
+			case $VERSION_ID in
+
+				"16.04" | "16.10" | "17.04" | "17.10" | "18.04" | "18.10")
+		
+					clear
+					echo "System GNU/Linux $PRETTY_NAME detect..."
+					sleep 2
+					echo "Starting fusioninstall.sh by Verdanatech"
+					echo "-----------------"; sleep 1;
+
+					# Download and install fusioninventory-agent
+					erroDescription="Erro to get fusioninventory-agent"
+
+					wget -O fusioninventory-agent.deb $FUSION_DEB_LINK; [ $? -ne 0 ] && erroDetect
+
+					dpkg -i fusioninventory-agent.deb
+				
+					erroDescription="Error to resolve dependencies"
+					apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+				
+				;;
+
+				*)
+					erroDescription="Operating system not supported."
+					erroDetect
 	
-		*)
-			erroDescription="Operating system not supported."
-			erroDetect
-	
-		;;
-	
-	esac
+				;;
+			esac
 
 	clear
 	echo "Configuring fusioninventory-agent..."
@@ -265,3 +275,8 @@ echo -e "
 |\033[32m https://www.verdanatech.com\033[0m                               |
  -----------------------------------------------------------
 "
+
+
+
+
+
