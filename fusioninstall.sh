@@ -2,8 +2,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: fusioninstall.sh
-#	@versao: 1.0.2
-#	@Data 11 de Novembro de 2018
+#	@versao: 1.0.3
+#	@Data 05 de Dezembro de 2018
 #	@Copyright: Verdanatech Soluções em TI, 2018
 # --------------------------------------------------------------------------
 # LICENSE
@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Dez 04, 2018"
-TITULO="Verdanatech FusionInstall - v.1.0.2"
+versionDate="Dez 05, 2018"
+TITULO="Verdanatech FusionInstall - v.1.0.3"
 BANNER="http://www.verdanatech.com"
 
 FUSION_DEB_LINK="http://debian.fusioninventory.org/downloads/fusioninventory-agent_2.4-2_all.deb"
@@ -231,11 +231,11 @@ enabled_metadata=1
 				;;
 			esac
 
+	esac
+
 	clear
 	echo "Configuring fusioninventory-agent..."
 	sleep 2
-
-	 
 
 	setAgentConfig
 
