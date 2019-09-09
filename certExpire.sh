@@ -46,4 +46,4 @@ hoje=$(date +%s)
 result=$(expr $expiraData - $hoje)
 
 # resultado de dias para expirar
-expr $result / 84600
+expr $result / 86400
