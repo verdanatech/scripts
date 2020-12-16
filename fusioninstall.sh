@@ -2,9 +2,9 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: fusioninstall.sh
-#	@versao: 1.0.3
+#	@versao: 1.0.6
 #	@Data 05 de Dezembro de 2018
-#	@Copyright: Verdanatech Soluções em TI, 2018
+#	@Copyright: Verdanatech Soluções em TI, 2019
 # --------------------------------------------------------------------------
 # LICENSE
 #
@@ -25,11 +25,11 @@
 # Variables Declaration
 #
 
-versionDate="Dez 05, 2018"
-TITULO="Verdanatech FusionInstall - v.1.0.3"
+versionDate="Dez 04, 2020"
+TITULO="Verdanatech FusionInstall - v.1.0.7"
 BANNER="http://www.verdanatech.com"
 
-FUSION_DEB_LINK="http://debian.fusioninventory.org/downloads/fusioninventory-agent_2.4-2_all.deb"
+FUSION_DEB_LINK="https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/fusioninventory-agent_2.6-1_all.deb"
 
 
 clear
@@ -125,7 +125,7 @@ INSTALL ()
 	
 			case $VERSION_ID in
 		
-				9 | 8)
+				10 | 9 | 8)
 		
 					clear
 					echo "System GNU/Linux $PRETTY_NAME detect..."
@@ -138,8 +138,7 @@ INSTALL ()
 
 					wget -O fusioninventory-agent.deb $FUSION_DEB_LINK; [ $? -ne 0 ] && erroDetect
 
-					erroDescription="Erro to run DPKG"
-					dpkg -i fusioninventory-agent.deb; [ $? -ne 0 ] && erroDetect
+					dpkg -i fusioninventory-agent.deb
 				
 					erroDescription="Error to resolve dependencies"
 					apt-get -f install -y; [ $? -ne 0 ] && erroDetect
@@ -199,12 +198,57 @@ enabled_metadata=1
 			esac
 
 		;;
+
+		rhel)
+
+			case $VERSION_ID in
+				
+				"8.1")
+
+					clear
+					echo "System GNU/Linux $PRETTY_NAME detect..."
+					sleep 2
+					echo "Starting fusioninstall.sh by Verdanatech"
+					echo "-----------------"; sleep 1
+
+					# Add perl repository to resolv dependencies
+					erroDescription="Erro to  add EPEL repository!"
+					yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm; [ $? -ne 0 ] && erroDetect
+
+					# Add fusioninventory repository
+					erroDescription="Erro to create fusioninventory repository!"
+					echo -e "[trasher-fusioninventory-agent]
+name=Copr repo for fusioninventory-agent owned by trasher
+baseurl=https://copr-be.cloud.fedoraproject.org/results/trasher/fusioninventory-agent/epel-8-\$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/trasher/fusioninventory-agent/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+" > /etc/yum.repos.d/copr.fusion.repo; [ $? -ne 0 ] && erroDetect
+
+					# Install fusioninventory-agent
+					yum install -y fusioninventory-agent
+				
+				;;
+
+
+				
+				*)
+					erroDescription="Operating system not supported."
+					erroDetect				
+				;;
+			esac
+		
+		;;
 	
 		ubuntu)
 
 			case $VERSION_ID in
 
-				"16.04" | "16.10" | "17.04" | "17.10" | "18.04" | "18.10")
+				"16.04" | "16.10" | "17.04" | "17.10" | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" )
 		
 					clear
 					echo "System GNU/Linux $PRETTY_NAME detect..."
@@ -275,7 +319,6 @@ echo -e "
 |\033[32m https://www.verdanatech.com\033[0m                               |
  -----------------------------------------------------------
 "
-
 
 
 
