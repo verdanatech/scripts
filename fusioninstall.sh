@@ -2,18 +2,18 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: fusioninstall.sh
-#	@versao: 1.0.6
-#	@Data 05 de Dezembro de 2018
-#	@Copyright: Verdanatech Soluções em TI, 2019
+#	@versao: 1.0.7
+#	@Data 18 de Dezembro de 2020
+#	@Copyright: Verdanatech Soluções em TI, 2020
 # --------------------------------------------------------------------------
 # LICENSE
 #
-# integraGZ.sh is free software; you can redistribute it and/or modify
+# fusioninstall.sh is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
 #
-# integraGZ.sh is distributed in the hope that it will be useful,
+# fusioninstall.shis distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -25,7 +25,7 @@
 # Variables Declaration
 #
 
-versionDate="Dez 04, 2020"
+versionDate="Dez 18, 2020"
 TITULO="Verdanatech FusionInstall - v.1.0.7"
 BANNER="http://www.verdanatech.com"
 
@@ -56,7 +56,7 @@ cd /tmp/
 function setAgentConfig(){
 	
 	erroDescription="Error to set GLPi Server!"
-	GLPI_SERVER=$(whiptail --title "${TITULO}" --backtitle "${BANNER}" --inputbox "Enter the GLPi Server address: eg: https://glpi.verdanatech.com." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
+	GLPI_SERVER=$(whiptail --title "${TITULO}" --backtitle "${BANNER}" --inputbox "Enter the GLPi Server address: eg: https://empresa.verdanadesk.com." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
 
 	erroDescription="Error to set fusion TAG!"
 	FUSION_TAG=$(whiptail --title "${TITULO}" --backtitle "${BANNER}" --inputbox "Enter the fusion TAG to use." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
@@ -107,8 +107,12 @@ INSTALL ()
 {
 	clear
 
+	# Discovery and test SO support
+	erroDescription="This System is not supported"
+	SO=$(uname);[ $SO != Linux ] && erroDetect
+	
 	# Test if the systen has which package
-	erroDescription="The whiptail package is required to run the integraGZ.sh"
+	erroDescription="The whiptail package is required to run the fusioninstall.sh"
 	which whiptail; [ $? -ne 0 ] && erroDetect
 
 	# Test if the user is root
@@ -163,8 +167,9 @@ INSTALL ()
 
 					clear
 					echo "System GNU/Linux $PRETTY_NAME detect..."
-					sleep 2
+					sleep 1
 					echo "Starting fusioninstall.sh by Verdanatech"
+					echo "-----------------"; sleep 1
 					echo "-----------------"; sleep 1
 
 					# Add perl repository to resolv dependencies
