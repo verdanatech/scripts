@@ -2,9 +2,9 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: fusioninstall.sh
-#	@versao: 1.0.7
-#	@Data 18 de Dezembro de 2020
-#	@Copyright: Verdanatech Soluções em TI, 2020
+#	@versao: 1.0.8
+#	@Data 08 de Abril de 2021
+#	@Copyright: Verdanatech Soluções em TI, 2021
 # --------------------------------------------------------------------------
 # LICENSE
 #
@@ -25,11 +25,13 @@
 # Variables Declaration
 #
 
-versionDate="Dez 18, 2020"
-TITULO="Verdanatech FusionInstall - v.1.0.7"
+versionDate="Abr 08, 2021"
+TITULO="Verdanatech FusionInstall - v.1.0.8"
 BANNER="http://www.verdanatech.com"
 
 FUSION_DEB_LINK="https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/fusioninventory-agent_2.6-1_all.deb"
+
+FUSION_MAC_LINK="https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/FusionInventory-Agent-2.6-2.pkg.tar.gz"
 
 
 clear
@@ -54,18 +56,38 @@ cd /tmp/
 # Function setAgentConfig
 
 function setAgentConfig(){
+
+		if [ $SO != Darwin ]
+		then
 	
-	erroDescription="Error to set GLPi Server!"
-	GLPI_SERVER=$(whiptail --title "${TITULO}" --backtitle "${BANNER}" --inputbox "Enter the GLPi Server address: eg: https://empresa.verdanadesk.com." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
+			erroDescription="Error to set GLPi Server!"
+			GLPI_SERVER=$(whiptail --title "${TITULO}" --backtitle "${BANNER}" --inputbox "Enter the GLPi Server address: eg: https://empresa.verdanadesk.com." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
 
-	erroDescription="Error to set fusion TAG!"
-	FUSION_TAG=$(whiptail --title "${TITULO}" --backtitle "${BANNER}" --inputbox "Enter the fusion TAG to use." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
+			erroDescription="Error to set fusion TAG!"
+			FUSION_TAG=$(whiptail --title "${TITULO}" --backtitle "${BANNER}" --inputbox "Enter the fusion TAG to use." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
 
-	erroDescription="Error to set HTTP TRUSTED HOST!"
-	TRUST=$(whiptail --title "${TITULO}" --backtitle "${BANNER}" --inputbox "Enter the http_trust host or network in CIDR format. eg: 127.0.0.1/32 192.168.1.0/24." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
+			erroDescription="Error to set HTTP TRUSTED HOST!"
+			TRUST=$(whiptail --title "${TITULO}" --backtitle "${BANNER}" --inputbox "Enter the http_trust host or network in CIDR format. eg: 127.0.0.1/32 192.168.1.0/24." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
 
-	erroDescription="Error to create Agent Configuration!"
-	echo -e "server = '$GLPI_SERVER/plugins/fusioninventory/'\nlocal = /tmp\ntasks = inventory\ndelaytime = 30\nlazy = 1\nscan-homedirs = 0\nscan-profiles = 0\nhtml = 0\nbackend-collect-timeout = 30\nforce = 0\nadditional-content =\nno-p2p = 0\nno-ssl-check = 0\ntimeout = 180\nno-httpd = 0\nhttpd-port = 62354\nhttpd-trust = $TRUST\nforce = 1\nlogger = syslog\nlogfacility = LOG_DAEMON\ncolor = 0\ntag = $FUSION_TAG\ndebug = 0\n" > /etc/fusioninventory/agent.cfg; [ $? -ne 0 ] && erroDetect
+			erroDescription="Error to create Agent Configuration!"
+			echo -e "server = '$GLPI_SERVER/plugins/fusioninventory/'\nlocal = /tmp\ntasks = inventory\ndelaytime = 300\nlazy = 1\nscan-homedirs = 0\nscan-profiles = 0\nhtml = 0\nbackend-collect-timeout = 30\nforce = 0\nadditional-content =\nno-p2p = 0\nno-ssl-check = 0\ntimeout = 180\nno-httpd = 0\nhttpd-port = 62354\nhttpd-trust = $TRUST\nforce = 1\nlogger = syslog\nlogfacility = LOG_DAEMON\ncolor = 0\ntag = $FUSION_TAG\ndebug = 0\n" > /etc/fusioninventory/agent.cfg; [ $? -ne 0 ] && erroDetect
+
+		else
+		
+			clear
+			echo " - - - - - - - - - - - - - "
+			echo " Enter the GLPi Server address: eg: https://empresa.verdanadesk.com."
+			read GLPI_SERVER
+			echo "Enter the fusion TAG to use."
+			read FUSION_TAG
+			echo "Enter the http_trust host or network in CIDR format. eg: 127.0.0.1/32 192.168.1.0/24."
+			read TRUST
+			
+			erroDescription="Error to create Agent Configuration!"
+			echo -e "server = '$GLPI_SERVER/plugins/fusioninventory/'\nlocal = /tmp\ntasks = inventory\ndelaytime = 300\nlazy = 1\nscan-homedirs = 0\nscan-profiles = 0\nhtml = 0\nbackend-collect-timeout = 30\nforce = 0\nadditional-content =\nno-p2p = 0\nno-ssl-check = 0\ntimeout = 180\nno-httpd = 0\nhttpd-port = 62354\nhttpd-trust = $TRUST\nforce = 1\nlogger = syslog\nlogfacility = LOG_DAEMON\ncolor = 0\ntag = $FUSION_TAG\ndebug = 0\n" > /opt/fusioninventory-agent/etc/agent.cfg; [ $? -ne 0 ] && erroDetect
+			
+		fi
+
 
 }
 
@@ -109,76 +131,81 @@ INSTALL ()
 
 	# Discovery and test SO support
 	erroDescription="This System is not supported"
-	SO=$(uname);[ $SO != Linux ] && erroDetect
+	SO=$(uname); [ $SO != Darwin ] && [ $SO != Linux ] && erroDetect
 	
-	# Test if the systen has which package
-	erroDescription="The whiptail package is required to run the fusioninstall.sh"
-	which whiptail; [ $? -ne 0 ] && erroDetect
-
 	# Test if the user is root
 	erroDescription="System administrator privilege is required"
 	[ $UID -ne 0 ] && erroDetect
-
-	# Discovery the system version and instanciate variables
-	erroDescription="Operating system not supported."
-	source /etc/os-release ; [ $? -ne 0 ] && erroDetect
-		
-	case $ID in
-
-		debian)
 	
-			case $VERSION_ID in
-		
-				10 | 9 | 8)
-		
-					clear
-					echo "System GNU/Linux $PRETTY_NAME detect..."
-					sleep 2
-					echo "Starting fusioninstall.sh by Verdanatech"
-					echo "-----------------"; sleep 1;
-
-					# Download and install fusioninventory-agent
-					erroDescription="Erro to get fusioninventory-agent"
-
-					wget -O fusioninventory-agent.deb $FUSION_DEB_LINK; [ $? -ne 0 ] && erroDetect
-
-					dpkg -i fusioninventory-agent.deb
-				
-					erroDescription="Error to resolve dependencies"
-					apt-get -f install -y; [ $? -ne 0 ] && erroDetect
 	
-				
+	# Test if the systen has which package
+	erroDescription="The whiptail package is required to run the fusioninstall.sh"
+	
+	if [ $SO != Darwin ]
+	then
+		which whiptail; [ $? -ne 0 ] && erroDetect
+	
+		# Discovery the system version and instanciate variables
+		erroDescription="Operating system not supported."
+	
+		source /etc/os-release ; [ $? -ne 0 ] && erroDetect
+		
+		case $ID in
+
+			debian)
+	
+				case $VERSION_ID in
+		
+					10 | 9 | 8)
+		
+						clear
+						echo "System GNU/Linux $PRETTY_NAME detect..."
+						sleep 2
+						echo "Starting fusioninstall.sh by Verdanatech"
+						echo "-----------------"; sleep 1;
+	
+						# Download and install fusioninventory-agent
+						erroDescription="Erro to get fusioninventory-agent"
+	
+						wget -O fusioninventory-agent.deb $FUSION_DEB_LINK; [ $? -ne 0 ] && erroDetect
+	
+						dpkg -i fusioninventory-agent.deb
+					
+						erroDescription="Error to resolve dependencies"
+						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+	
+					
+					;;
+
+				*)
+					erroDescription="Operating system not supported."
+					erroDetect				
 				;;
+		
+				esac
 
-			*)
-				erroDescription="Operating system not supported."
-				erroDetect				
 			;;
 		
-			esac
-
-		;;
-		
-		centos)
+			centos)
 	
-			case $VERSION_ID in
+				case $VERSION_ID in
 		
-				7)
+					7)
 
-					clear
-					echo "System GNU/Linux $PRETTY_NAME detect..."
-					sleep 1
-					echo "Starting fusioninstall.sh by Verdanatech"
-					echo "-----------------"; sleep 1
-					echo "-----------------"; sleep 1
-
-					# Add perl repository to resolv dependencies
-					erroDescription="Erro to  add EPEL repository!"
-					yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; [ $? -ne 0 ] && erroDetect
-
-					# Add fusioninventory repository
-					erroDescription="Erro to create fusioninventory repository!"
-					echo -e "[trasher-fusioninventory-agent]
+						clear
+						echo "System GNU/Linux $PRETTY_NAME detect..."
+						sleep 1
+						echo "Starting fusioninstall.sh by Verdanatech"
+						echo "-----------------"; sleep 1
+						echo "-----------------"; sleep 1
+	
+						# Add perl repository to resolv dependencies
+						erroDescription="Erro to  add EPEL repository!"
+						yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; [ $? -ne 0 ] && erroDetect
+	
+						# Add fusioninventory repository
+						erroDescription="Erro to create fusioninventory repository!"
+						echo -e "[trasher-fusioninventory-agent]
 name=Copr repo for fusioninventory-agent owned by trasher
 baseurl=https://copr-be.cloud.fedoraproject.org/results/trasher/fusioninventory-agent/epel-7-\$basearch/
 type=rpm-md
@@ -190,39 +217,39 @@ enabled=1
 enabled_metadata=1
 " > /etc/yum.repos.d/copr.fusion.repo; [ $? -ne 0 ] && erroDetect
 
-					# Install fusioninventory-agent
-					yum install -y fusioninventory-agent
-				
-				;;
+						# Install fusioninventory-agent
+						yum install -y fusioninventory-agent
+					
+					;;
 
-				*)
-					erroDescription="Operating system not supported."
-					erroDetect				
-				;;
+					*)
+						erroDescription="Operating system not supported."
+						erroDetect				
+					;;
 		
-			esac
+				esac
 
-		;;
+			;;
 
-		rhel)
+			rhel)
 
-			case $VERSION_ID in
+				case $VERSION_ID in
 				
-				"8.1")
+					"8.1")
 
-					clear
-					echo "System GNU/Linux $PRETTY_NAME detect..."
-					sleep 2
-					echo "Starting fusioninstall.sh by Verdanatech"
-					echo "-----------------"; sleep 1
+						clear
+						echo "System GNU/Linux $PRETTY_NAME detect..."
+						sleep 2
+						echo "Starting fusioninstall.sh by Verdanatech"
+						echo "-----------------"; sleep 1
 
-					# Add perl repository to resolv dependencies
-					erroDescription="Erro to  add EPEL repository!"
-					yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm; [ $? -ne 0 ] && erroDetect
+						# Add perl repository to resolv dependencies
+						erroDescription="Erro to  add EPEL repository!"
+						yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm; [ $? -ne 0 ] && erroDetect
 
-					# Add fusioninventory repository
-					erroDescription="Erro to create fusioninventory repository!"
-					echo -e "[trasher-fusioninventory-agent]
+						# Add fusioninventory repository
+						erroDescription="Erro to create fusioninventory repository!"
+						echo -e "[trasher-fusioninventory-agent]
 name=Copr repo for fusioninventory-agent owned by trasher
 baseurl=https://copr-be.cloud.fedoraproject.org/results/trasher/fusioninventory-agent/epel-8-\$basearch/
 type=rpm-md
@@ -234,53 +261,74 @@ enabled=1
 enabled_metadata=1
 " > /etc/yum.repos.d/copr.fusion.repo; [ $? -ne 0 ] && erroDetect
 
-					# Install fusioninventory-agent
-					yum install -y fusioninventory-agent
+						# Install fusioninventory-agent
+						yum install -y fusioninventory-agent
 				
-				;;
+					;;
 
 
 				
-				*)
-					erroDescription="Operating system not supported."
-					erroDetect				
-				;;
-			esac
+					*)
+						erroDescription="Operating system not supported."
+						erroDetect				
+					;;
+				esac
 		
-		;;
+			;;
 	
-		ubuntu)
+			ubuntu)
 
-			case $VERSION_ID in
+				case $VERSION_ID in
 
-				"16.04" | "16.10" | "17.04" | "17.10" | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" )
+					"16.04" | "16.10" | "17.04" | "17.10" | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" )
 		
-					clear
-					echo "System GNU/Linux $PRETTY_NAME detect..."
-					sleep 2
-					echo "Starting fusioninstall.sh by Verdanatech"
-					echo "-----------------"; sleep 1;
+						clear
+						echo "System GNU/Linux $PRETTY_NAME detect..."
+						sleep 2
+						echo "Starting fusioninstall.sh by Verdanatech"
+						echo "-----------------"; sleep 1;
 
-					# Download and install fusioninventory-agent
-					erroDescription="Erro to get fusioninventory-agent"
-
-					wget -O fusioninventory-agent.deb $FUSION_DEB_LINK; [ $? -ne 0 ] && erroDetect
-
-					dpkg -i fusioninventory-agent.deb
-				
-					erroDescription="Error to resolve dependencies"
-					apt-get -f install -y; [ $? -ne 0 ] && erroDetect
-				
-				;;
-
-				*)
-					erroDescription="Operating system not supported."
-					erroDetect
+						# Download and install fusioninventory-agent
+						erroDescription="Erro to get fusioninventory-agent"
 	
-				;;
-			esac
+						wget -O fusioninventory-agent.deb $FUSION_DEB_LINK; [ $? -ne 0 ] && erroDetect
+	
+						dpkg -i fusioninventory-agent.deb
+				
+						erroDescription="Error to resolve dependencies"
+						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+				
+					;;
 
-	esac
+					*)
+						erroDescription="Operating system not supported."
+						erroDetect
+	
+					;;
+				esac
+
+		esac
+	else
+		#
+		# INSTALA MacOS
+		#
+		
+		clear
+		echo "System MacOS detect..."
+		sleep 2
+		echo "Starting fusioninstall.sh by Verdanatech"
+		echo "-----------------"; sleep 1;
+
+		# Download and install fusioninventory-agent
+		erroDescription="Erro to get fusioninventory-agent"
+	
+		wget -O fusioninventory-agent.tar.gz $FUSION_MAC_LINK; [ $? -ne 0 ] && erroDetect
+	
+		tar xfz fusioninventory-agent.tar.gz
+		
+		installer -pkg FusionInventory-Agent-2.6-2.pkg -target / -lang en
+		
+	fi
 
 	clear
 	echo "Configuring fusioninventory-agent..."
@@ -294,16 +342,29 @@ enabled_metadata=1
 
 	erroDescription="Error to enable fusioninventory-agent with SystemCTL"
 
-	sleep 1
 	# enable stato with system
-	systemctl enable fusioninventory-agent; [ $? -ne 0 ] && erroDetect
+	if [ $SO != Darwin ]
+	then
+		systemctl enable fusioninventory-agent; [ $? -ne 0 ] && erroDetect
+		sleep 1
+		
+		erroDescription="Error to start fusioninventory-agent"
+		# Iniciando o serviço fusioninventory
+		systemctl start fusioninventory-agent; [ $? -ne 0 ] && erroDetect
 
-	sleep 1
-	erroDescription="Error to start fusioninventory-agent"
-	# Iniciando o serviço fusioninventory
-	systemctl start fusioninventory-agent; [ $? -ne 0 ] && erroDetect
-
-	fusioninventory-agent --force; [ $? -ne 0 ] && erroDetect
+		fusioninventory-agent --force; [ $? -ne 0 ] && erroDetect
+		
+	else
+	
+		erroDescription="Error to start fusioninventory-agent"
+		# Iniciando o serviço fusioninventory	
+		launchctl start org.fusioninventory.agent; [ $? -ne 0 ] && erroDetect
+		
+		erroDescription="Error to start fusioninventory-agent"
+		# Iniciando o serviço fusioninventory
+		/opt/fusioninventory-agent/bin/fusioninventory-agent; [ $? -ne 0 ] && erroDetect
+		
+	fi
 
 }
 
@@ -324,7 +385,6 @@ echo -e "
 |\033[32m https://www.verdanatech.com\033[0m                               |
  -----------------------------------------------------------
 "
-
 
 
 
