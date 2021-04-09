@@ -2,8 +2,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: fusioninstall.sh
-#	@versao: 1.0.8
-#	@Data 08 de Abril de 2021
+#	@versao: 1.0.9
+#	@Data 09 de Abril de 2021
 #	@Copyright: Verdanatech Soluções em TI, 2021
 # --------------------------------------------------------------------------
 # LICENSE
@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Abr 08, 2021"
-TITULO="Verdanatech FusionInstall - v.1.0.8"
+versionDate="Abr 09, 2021"
+TITULO="Verdanatech FusionInstall - v.1.0.9"
 BANNER="http://www.verdanatech.com"
 
 FUSION_DEB_LINK="https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/fusioninventory-agent_2.6-1_all.deb"
@@ -322,7 +322,7 @@ enabled_metadata=1
 		# Download and install fusioninventory-agent
 		erroDescription="Erro to get fusioninventory-agent"
 	
-		wget -O fusioninventory-agent.tar.gz $FUSION_MAC_LINK; [ $? -ne 0 ] && erroDetect
+		curl -sSL $FUSION_MAC_LINK -o fusioninventory-agent.tar.gz ; [ $? -ne 0 ] && erroDetect
 	
 		tar xfz fusioninventory-agent.tar.gz
 		
@@ -385,6 +385,5 @@ echo -e "
 |\033[32m https://www.verdanatech.com\033[0m                               |
  -----------------------------------------------------------
 "
-
 
 
