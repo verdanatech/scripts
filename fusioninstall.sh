@@ -2,8 +2,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: fusioninstall.sh
-#	@versao: 1.0.9
-#	@Data 09 de Abril de 2021
+#	@versao: 1.1.0
+#	@Data 13 de Maio de 2021
 #	@Copyright: Verdanatech Soluções em TI, 2021
 # --------------------------------------------------------------------------
 # LICENSE
@@ -25,12 +25,21 @@
 # Variables Declaration
 #
 
-versionDate="Abr 09, 2021"
-TITULO="Verdanatech FusionInstall - v.1.0.9"
+versionDate="Mai 13, 2021"
+TITULO="Verdanatech FusionInstall - v.1.1.0"
 BANNER="http://www.verdanatech.com"
 
+#
+# Debian Links
+#
 FUSION_DEB_LINK="https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/fusioninventory-agent_2.6-1_all.deb"
+FUSIONTASK_DEB_LINK="https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/fusioninventory-agent-task-collect_2.6-1_all.deb"
+FUSIONNET_DEB_LINK="https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/fusioninventory-agent-task-network_2.6-1_all.deb"
+FUSIONESX_DEB_LINK="https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/fusioninventory-agent-task-esx_2.6-1_all.deb"
 
+#
+# MAC Links
+#
 FUSION_MAC_LINK="https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/FusionInventory-Agent-2.6-2.pkg.tar.gz"
 
 
@@ -87,7 +96,6 @@ function setAgentConfig(){
 			echo -e "server = '$GLPI_SERVER/plugins/fusioninventory/'\nlocal = /tmp\ntasks = inventory\ndelaytime = 300\nlazy = 1\nscan-homedirs = 0\nscan-profiles = 0\nhtml = 0\nbackend-collect-timeout = 30\nforce = 0\nadditional-content =\nno-p2p = 0\nno-ssl-check = 0\ntimeout = 180\nno-httpd = 0\nhttpd-port = 62354\nhttpd-trust = $TRUST\nforce = 1\nlogger = syslog\nlogfacility = LOG_DAEMON\ncolor = 0\ntag = $FUSION_TAG\ndebug = 0\n" > /opt/fusioninventory-agent/etc/agent.cfg; [ $? -ne 0 ] && erroDetect
 			
 		fi
-
 
 }
 
@@ -173,7 +181,38 @@ INSTALL ()
 					
 						erroDescription="Error to resolve dependencies"
 						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+						
+												# Download and install fusioninventory-task
+						erroDescription="Erro to get fusioninventory-task"
 	
+						wget -O fusioninventory-task.deb $FUSIONTASK_DEB_LINK; [ $? -ne 0 ] && erroDetect
+	
+						dpkg -i fusioninventory-task.deb
+				
+						erroDescription="Error to resolve dependencies"
+						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+						
+						
+						# Download and install fusioninventory-net
+						erroDescription="Erro to get fusioninventory-net"
+	
+						wget -O fusioninventory-net.deb $FUSIONNET_DEB_LINK; [ $? -ne 0 ] && erroDetect
+	
+						dpkg -i fusioninventory-net.deb
+				
+						erroDescription="Error to resolve dependencies"
+						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+						
+
+						# Download and install fusioninventory-esx
+						erroDescription="Erro to get fusioninventory-esx"
+	
+						wget -O fusioninventory-esx.deb $FUSIONESX_DEB_LINK; [ $? -ne 0 ] && erroDetect
+	
+						dpkg -i fusioninventory-esx.deb
+				
+						erroDescription="Error to resolve dependencies"
+						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
 					
 					;;
 
@@ -297,7 +336,40 @@ enabled_metadata=1
 				
 						erroDescription="Error to resolve dependencies"
 						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+
+
+						# Download and install fusioninventory-task
+						erroDescription="Erro to get fusioninventory-task"
+	
+						wget -O fusioninventory-task.deb $FUSIONTASK_DEB_LINK; [ $? -ne 0 ] && erroDetect
+	
+						dpkg -i fusioninventory-task.deb
 				
+						erroDescription="Error to resolve dependencies"
+						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+						
+						
+						# Download and install fusioninventory-net
+						erroDescription="Erro to get fusioninventory-net"
+	
+						wget -O fusioninventory-net.deb $FUSIONNET_DEB_LINK; [ $? -ne 0 ] && erroDetect
+	
+						dpkg -i fusioninventory-net.deb
+				
+						erroDescription="Error to resolve dependencies"
+						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+						
+
+						# Download and install fusioninventory-esx
+						erroDescription="Erro to get fusioninventory-esx"
+	
+						wget -O fusioninventory-esx.deb $FUSIONESX_DEB_LINK; [ $? -ne 0 ] && erroDetect
+	
+						dpkg -i fusioninventory-esx.deb
+				
+						erroDescription="Error to resolve dependencies"
+						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+						
 					;;
 
 					*)
