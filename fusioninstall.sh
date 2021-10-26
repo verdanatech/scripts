@@ -2,7 +2,7 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: fusioninstall.sh
-#	@versao: 1.1.0
+#	@versao: 1.1.1
 #	@Data 13 de Maio de 2021
 #	@Copyright: Verdanatech Soluções em TI, 2021
 # --------------------------------------------------------------------------
@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Mai 13, 2021"
-TITULO="Verdanatech FusionInstall - v.1.1.0"
+versionDate="Out 26, 2021"
+TITULO="Verdanatech FusionInstall - v.1.1.1"
 BANNER="http://www.verdanatech.com"
 
 #
@@ -164,7 +164,7 @@ INSTALL ()
 	
 				case $VERSION_ID in
 		
-					10 | 9 | 8)
+					11 | 10 | 9 | 8)
 		
 						clear
 						echo "System GNU/Linux $PRETTY_NAME detect..."
@@ -319,7 +319,7 @@ enabled_metadata=1
 
 				case $VERSION_ID in
 
-					"16.04" | "16.10" | "17.04" | "17.10" | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" )
+					"16.04" | "16.10" | "17.04" | "17.10" | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | 21.04 | 21.10 )
 		
 						clear
 						echo "System GNU/Linux $PRETTY_NAME detect..."
