@@ -4,7 +4,7 @@
 # 	@name: cron.sh
 #	@versao: 1.0.0
 #	@Data 02 de Março de 2023
-#	@Copyright: Verdanatech Soluções em TI, 2015 - 2023
+#	@Copyright: Verdanatech Soluções em TI, 2015 - 2023 
 # --------------------------------------------------------------------------
 # LICENSE
 #
