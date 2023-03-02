@@ -29,7 +29,7 @@ umask 0000
 
 PHP=/usr/bin/php
 
-GLPI_DIR=/home/$i/public_html/verdanadesk
+GLPI_DIR=/var/www/html/glpi
 
 case $1 in
 
