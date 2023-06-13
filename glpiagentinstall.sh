@@ -141,11 +141,11 @@ INSTALL ()
 		
 		case $ID in
 
-			debian | ubuntu)
+			debian | ubuntu | linuxmint )
 	
 				case $VERSION_ID in
 		
-					11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" )
+					11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" | "20.3" | "21.1" )
 		
 						clear
 						echo "System GNU/Linux $PRETTY_NAME detect..."
