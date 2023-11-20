@@ -32,11 +32,11 @@ BANNER="http://www.verdanatech.com"
 #
 # Debian Links
 #
-GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.5/glpi-agent_1.5-1_all.deb"
-GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.5/glpi-agent-task-network_1.5-1_all.deb"
-GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.5/glpi-agent-task-esx_1.5-1_all.deb"
-GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.5/glpi-agent-task-deploy_1.5-1_all.deb"
-
+GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.6.1/glpi-agent_1.6.1-1_all.deb"
+GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.6.1/glpi-agent-task-network_1.6.1-1_all.deb"
+GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.6.1/glpi-agent-task-esx_1.6.1-1_all.deb"
+GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.6.1/glpi-agent-task-collect_1.6.1-1_all.deb"
+GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.6.1/glpi-agent-task-deploy_1.6.1-1_all.deb"
 
 clear
 
@@ -145,7 +145,7 @@ INSTALL ()
 	
 				case $VERSION_ID in
 		
-					12 | 11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" | "20.3" | "21.1" )
+					12 | 11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" | "22.10" | "23.04" | "20.3" | "21.1" )
 		
 						clear
 						echo "System GNU/Linux $PRETTY_NAME detect..."
@@ -161,7 +161,7 @@ INSTALL ()
 						erroDescription="Error to resolve dependencies"
 						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
             
-            # Download and install glpi-net
+           					# Download and install glpi-net
 						erroDescription="Erro to get glpi-net"
 						wget -O glpi-net.deb $GLPI_DEB_NET_LINK; [ $? -ne 0 ] && erroDetect
       						echo "Netinventory install ... "
@@ -169,15 +169,23 @@ INSTALL ()
 						erroDescription="Error to resolve dependencies"
 						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
             
-            # Download and install glpi-esx
+        					# Download and install glpi-esx
 						erroDescription="Erro to get glpi-esx"
 						wget -O glpi-esx.deb $GLPI_DEB_ESX_LINK; [ $? -ne 0 ] && erroDetect
       						echo "ESX install ..."
 						dpkg -i glpi-esx.deb 
 						erroDescription="Error to resolve dependencies"
 						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
-						
+
 						# Download and install glpi-task
+						erroDescription="Erro to get glpi-collect"
+						wget -O glpi-colelct.deb $GLPI_DEB_COL_LINK; [ $? -ne 0 ] && erroDetect
+      						echo "Task install ..."
+						dpkg -i glpi-colelct.deb 
+						erroDescription="Error to resolve dependencies"
+						apt-get -f install -y; [ $? -ne 0 ] && erroDetect
+      
+      						# Download and install glpi-task
 						erroDescription="Erro to get glpi-task"
 						wget -O glpi-task.deb $GLPI_DEB_TSK_LINK; [ $? -ne 0 ] && erroDetect
       						echo "Task install ..."
