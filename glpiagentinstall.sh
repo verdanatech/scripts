@@ -2,8 +2,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: glpiagentinstall.sh
-#	@versao: 0.0.1
-#	@Data 30 de Julho de 2022
+#	@versao: 0.0.3
+#	@Data 26 de Abril de 2024
 #	@Copyright: Verdanatech Soluções em TI, 2022
 # --------------------------------------------------------------------------
 # LICENSE
@@ -25,18 +25,18 @@
 # Variables Declaration
 #
 
-versionDate="Jun 29, 2023"
-TITULO="Verdanatech GLPiInstall - v.0.0.2"
+versionDate="Abr 26, 2024"
+TITULO="Verdanatech GLPiInstall - v.0.0.3"
 BANNER="http://www.verdanatech.com"
 
 #
 # Debian Links
 #
-GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.1/glpi-agent_1.7.1-1_all.deb"
-GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.1/glpi-agent-task-network_1.7.1-1_all.deb"
-GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.1/glpi-agent-task-esx_1.7.1-1_all.deb"
-GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.1/glpi-agent-task-collect_1.7.1-1_all.deb"
-GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.1/glpi-agent-task-deploy_1.7.1-1_all.deb"
+GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.3/glpi-agent_1.7.3-1_all.deb"
+GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.3/glpi-agent-task-network_1.7.3-1_all.deb"
+GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.3/glpi-agent-task-esx_1.7.3-1_all.deb"
+GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.3/glpi-agent-task-collect_1.7.3-1_all.deb"
+GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.7.3/glpi-agent-task-deploy_1.7.3-1_all.deb"
 
 clear
 
