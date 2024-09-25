@@ -47,11 +47,11 @@ GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/
 
 # x86_64
 GLPI_MAC_AGT_AMD64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_x86_64.pkg"
-GLPI_MAC_AGT_AMD64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_x86_64.dmg"
+#GLPI_MAC_AGT_AMD64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_x86_64.dmg"
 
 # arm64
 GLPI_MAC_AGT_ARM64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_arm64.pkg"
-GLPI_MAC_AGT_ARM64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_arm64.dmg"
+#GLPI_MAC_AGT_ARM64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_arm64.dmg"
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # End variables Declaration
@@ -148,11 +148,20 @@ function archDiscovery(){
 
 		Darwin)
 		
+			confPath="/Applications/GLPI-Agent/etc/agent.cfg"
 			case $systemArch in
 
 				arm64)
 
 					echo "$systemArch architecture detected"
+					MAC_AGENT=$GLPI_MAC_AGT_ARM64_PKG
+
+				;;
+
+				x86_64)
+
+					echo "$systemArch architecture detected"
+					MAC_AGENT=$GLPI_MAC_AGT_AMD64_PKG
 
 				;;
 
@@ -169,6 +178,7 @@ function archDiscovery(){
 
 		Linux)
 
+			confPath="/etc/glpi-agent/agent.cfg"
 			case $systemArch in
 
 				i386 | i686 | x86_64 | armv7l | armhf | aarch64)
@@ -244,46 +254,45 @@ function checkAgentExist(){
 
 		Darwin)
 
-			[ -e /Applications/GLPI-Agent/etc/agent.cfg ] && confRequired=0  || confRequired=1
+			[ -e $confPath ] && confRequired=0  || confRequired=1
 			egrep ^"server =" /Applications/GLPI-Agent/etc/agent.cfg > /dev/null 2>&1
 
 		;;
 
 		Linux)
 
-			[ -e /etc/glpi-agent/agent.cfg ] && confRequired=0  || confRequired=1
+			[ -e $confPath ] && confRequired=0  || confRequired=1
 
-			if [ $confRequired -eq 0 ]
-			then
-				echo "Agent configuration file found..."
-				sleep 1
-				echo "Searching for valid entry for service..."
-				sleep 1
-				egrep ^"server =" /etc/glpi-agent/agent.cfg > /dev/null 2>&1
-				
-				if [ $? -eq 0 ]
-				then
-
-					SERVER=$(egrep ^"server =" /etc/glpi-agent/agent.cfg | cut -d"=" -f2)
-					CONFIGURATION_OPTION=$(whiptail --title "${TITLE}" --backtitle "${BANNER}" --radiolist \
-					"The installer found a configuration file pointing to the following server: $SERVER. Create a new configuration?" 10 80 2 \
-					"yes" "New configuration" ON \
-					"no" "Keep existing configuration." OFF 3>&1 1>&2 2>&3)
-
-					if [ $CONFIGURATION_OPTION == yes ]; then
-						confRequired=1
-					else
-						confRequired=0
-					fi
-				else
-					confRequired=1
-				fi
-
-			fi
-	
 		;;
-        
+
 	esac
+
+		if [ $confRequired -eq 0 ]
+		then
+			echo "Agent configuration file found..."
+			sleep 1
+			echo "Searching for valid entry for service..."
+			sleep 1
+			egrep ^"server =" /etc/glpi-agent/agent.cfg > /dev/null 2>&1
+				
+			if [ $? -eq 0 ]
+			then
+
+				SERVER=$(egrep ^"server =" /etc/glpi-agent/agent.cfg | cut -d"=" -f2)
+				CONFIGURATION_OPTION=$(whiptail --title "${TITLE}" --backtitle "${BANNER}" --radiolist \
+				"The installer found a configuration file pointing to the following server: $SERVER. Create a new configuration?" 10 80 2 \
+				"yes" "New configuration" ON \
+				"no" "Keep existing configuration." OFF 3>&1 1>&2 2>&3)
+
+				if [ $CONFIGURATION_OPTION == yes ]; then
+					confRequired=1
+				else
+					confRequired=0
+				fi
+			else
+				confRequired=1
+			fi
+		fi
     
 }
 
@@ -293,17 +302,35 @@ function checkAgentExist(){
 
 function createNewConf(){
 
-	erroDescription="Error to set GLPi Server!"
-	VERDANADESK_SERVER=$(whiptail --title "${TITLE}" --backtitle "${BANNER}" --inputbox "Enter your Verdanadesk our GLPi Server address: eg: https://empresa.verdanadesk.com." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
+	if [ $SO == Linux ]
+	then
 
-	erroDescription="Error to set Asset TAG!"
-	ASSET_TAG=$(whiptail --title "${TITLE}" --backtitle "${BANNER}" --inputbox "Enter the Asset TAG to use." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
+		erroDescription="Error to set GLPi Server!"
+		VERDANADESK_SERVER=$(whiptail --title "${TITLE}" --backtitle "${BANNER}" --inputbox "Enter your Verdanadesk our GLPi Server address: eg: https://empresa.verdanadesk.com." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
 
-	erroDescription="Error to set HTTP TRUSTED HOST!"
-	HTTPD_TRUST=$(whiptail --title "${TITLE}" --backtitle "${BANNER}" --inputbox "Enter the http_trust host or network in CIDR format. eg: 127.0.0.1/32 192.168.1.0/24." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
+		erroDescription="Error to set Asset TAG!"
+		ASSET_TAG=$(whiptail --title "${TITLE}" --backtitle "${BANNER}" --inputbox "Enter the Asset TAG to use." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
+
+		erroDescription="Error to set HTTP TRUSTED HOST!"
+		HTTPD_TRUST=$(whiptail --title "${TITLE}" --backtitle "${BANNER}" --inputbox "Enter the http_trust host or network in CIDR format. eg: 127.0.0.1/32 192.168.1.0/24." --fb 10 60 3>&1 1>&2 2>&3); [ $? -ne 0 ] && erroDetect
+
+	else
+
+		printLine
+
+		echo "Enter your Verdanadesk our GLPi Server address: eg: https://empresa.verdanadesk.com."
+		read VERDANADESK_SERVER
+
+		echo "Enter the Asset TAG to use."
+		read ASSET_TAG
+
+		echo "Enter the http_trust host or network in CIDR format. eg: 127.0.0.1/32 192.168.1.0/24."
+		read HTTPD_TRUST
+
+	fi
 
 erroDescription="Error to create Agent Configuration!"
-cat > /etc/glpi-agent/agent.cfg << EOF ; [ $? -ne 0 ] && erroDetect
+cat > $confPath << EOF ; [ $? -ne 0 ] && erroDetect
 # GLPI agent configuration by Verdanadesk
 
 server = $VERDANADESK_SERVER
@@ -481,7 +508,14 @@ startInstall ()
         ;;
 
 		Darwin)
-			echo Isso eh um MAC mesmo....
+
+			erroDescription="Failed to download installation package from the internet"
+			
+			curl -L -k -o GLPI-Agent.pkg -O -#  $MAC_AGENT; [ $? -ne 0 ] && erroDetect
+
+			erroDescription="Failed to install package downloaded from internet"
+			installer -pkg GLPI-Agent.pkg -target /Applications; [ $? -ne 0 ] && erroDetect
+
 		;;
 
 	esac
@@ -544,7 +578,19 @@ fi
 clear
 
 echo "Running a new inventory"
-glpi-agent -f
+
+if [ $SO == Linux  ]
+then
+
+	glpi-agent -f
+
+else
+	launchctl unload /Library/LaunchDaemons/com.teclib.glpi-agent.plist
+	launchctl load /Library/LaunchDaemons/com.teclib.glpi-agent.plist
+	/Applications/GLPI-Agent/bin/glpi-agent -f
+
+fi
+
 echo
 
 echo -e "
