@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Sep 24, 2024"
-TITLE="Verdanadesk GLPi Agent Install - v.1.0.0"
+versionDate="Feb 22, 2025"
+TITLE="Verdanadesk GLPi Agent Install - v.1.0.1"
 BANNER="http://www.verdanatech.com"
 
 comercialMail="comercial@verdanatech.com"
@@ -35,11 +35,11 @@ devMail="halexsandro.sales@verdanatech.com"
 #
 # Debian Links
 #
-GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.11/glpi-agent_1.11-1_all.deb"
-GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.11/glpi-agent-task-network_1.11-1_all.deb"
-GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.11/glpi-agent-task-esx_1.11-1_all.deb"
-GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.11/glpi-agent-task-collect_1.11-1_all.deb"
-GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.11/glpi-agent-task-deploy_1.11-1_all.deb"
+GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent_1.12-1_all.deb"
+GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent-task-network_1.12-1_all.deb"
+GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent-task-esx_1.12-1_all.deb"
+GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent-task-collect_1.12-1_all.deb"
+GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent-task-deploy_1.12-1_all.deb"
 
 #
 # MAC OS Links
