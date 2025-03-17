@@ -2,8 +2,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: glpiagentinstall.sh
-#	@versao: 1.0.0
-#	@Data 24 de Setembro de 2024
+#	@versao: 1.0.2
+#	@Data 17 de Março de 2025
 #	@Copyright: Verdanatech Soluções em TI, 2022
 # --------------------------------------------------------------------------
 # LICENSE
@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Feb 22, 2025"
-TITLE="Verdanadesk GLPi Agent Install - v.1.0.1"
+versionDate="Mar 17, 2025"
+TITLE="Verdanadesk GLPi Agent Install - v.1.0.2"
 BANNER="http://www.verdanatech.com"
 
 comercialMail="comercial@verdanatech.com"
@@ -35,23 +35,23 @@ devMail="halexsandro.sales@verdanatech.com"
 #
 # Debian Links
 #
-GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent_1.12-1_all.deb"
-GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent-task-network_1.12-1_all.deb"
-GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent-task-esx_1.12-1_all.deb"
-GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent-task-collect_1.12-1_all.deb"
-GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.12/glpi-agent-task-deploy_1.12-1_all.deb"
+GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.13/glpi-agent_1.13-1_all.deb"
+GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.13/glpi-agent-task-network_1.13-1_all.deb"
+GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.13/glpi-agent-task-esx_1.13-1_all.deb"
+GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.13/glpi-agent-task-collect_1.13-1_all.deb"
+GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.13/glpi-agent-task-deploy_1.13-1_all.deb"
 
 #
 # MAC OS Links
 #
 
 # x86_64
-GLPI_MAC_AGT_AMD64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_x86_64.pkg"
-#GLPI_MAC_AGT_AMD64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_x86_64.dmg"
+GLPI_MAC_AGT_AMD64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/1.13/GLPI-Agent-1.13_x86_64.pkg"
+#GLPI_MAC_AGT_AMD64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/1.13/GLPI-Agent-1.13_x86_64.dmg"
 
 # arm64
-GLPI_MAC_AGT_ARM64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_arm64.pkg"
-#GLPI_MAC_AGT_ARM64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/1.11/GLPI-Agent-1.11_arm64.dmg"
+GLPI_MAC_AGT_ARM64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/1.13/GLPI-Agent-1.13_arm64.pkg"
+#GLPI_MAC_AGT_ARM64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/1.13/GLPI-Agent-1.13_arm64.dmg"
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # End variables Declaration
