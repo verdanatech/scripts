@@ -3,6 +3,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: certExpire.sh
+#	@versao: 0.0.2
+#	@Data 23 de Abril de 2025
 #	@versao: 0.0.1
 #	@Data 24 de Julho de 2019
 #	@Copyright: Verdanatech Soluções em TI, 2019, https://www.verdanatech.
@@ -34,16 +36,31 @@
 
 # --------------------------------------------------------------------------
 
-# Pegando data de expiração do certificado digital do site
-expiraData=$(curl --insecure -v $1  2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }' | grep "expire date" | awk '{print $4" "$5" "$6" "$7}')
+if [ -z $1 ]
+then
+        # Falta da BASEURL
+        echo "-1"
+        exit 1;
+fi
 
-# Convertendo data de expiração em timestamp
-expiraData=$(date -d "$expiraData" "+%s")
+host="$1"
 
-# Valor da data de hoje
-hoje=$(date +%s)
+expiration_string=$(curl -s -v --insecure "$host" 2>&1 | grep "expire date" | awk '{print $4, $5, $6, $7}')
 
-result=$(expr $expiraData - $hoje)
+if [ -n "$expiration_string" ]
+then
 
-# resultado de dias para expirar
-expr $result / 86400
+        expiration_date=$(date -d "$expiration_string" +%s)
+        current_date=$(date +%s)
+        seconds_to_expire=$((expiration_date - current_date))
+        days_to_expire=$((seconds_to_expire / (60 * 60 * 24)))
+
+        echo $days_to_expire
+
+else
+
+        # Erro ao baixar informação do certificado.
+        echo -2
+        exit 2;
+
+fi
