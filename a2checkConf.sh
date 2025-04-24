@@ -23,7 +23,7 @@
 
 
 # Executa o comando apachectl -t descartando a saída padrão
-apachectl -t > /dev/null 2>&1
+sudo apachectl -t > /dev/null 2>&1
 
 #
 # STATUS REPORT
