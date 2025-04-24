@@ -4,8 +4,6 @@
 # 	@name: a2checkConf.sh
 #	@versao: 0.0.1
 #	@Data 24 de Abril de 2025
-#	@versao: 0.0.1
-#	@Data 24 de Julho de 2019
 #	@Copyright: Verdanatech Soluções em TI, 2019, https://www.verdanatech.com
 # --------------------------------------------------------------------------
 # LICENSE
