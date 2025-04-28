@@ -35,11 +35,11 @@ devMail="halexsandro.sales@verdanatech.com"
 #
 # Debian Links
 #
-GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent_1.14_all.deb"
-GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent-task-network_1.14_all.deb"
-GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent-task-esx_1.14_all.deb"
-GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent-task-collect_1.14_all.deb"
-GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent-task-deploy_1.14_all.deb"
+GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent_1.14-1_all.deb"
+GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent-task-network_1.14-1_all.deb"
+GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent-task-esx_1.14-1_all.deb"
+GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent-task-collect_1.14-1_all.deb"
+GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/1.14/glpi-agent-task-deploy_1.14-1_all.deb"
 
 #
 # MAC OS Links
