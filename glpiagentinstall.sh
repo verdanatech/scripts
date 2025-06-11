@@ -37,23 +37,23 @@ AGENT_VERSION=$(curl -s https://github.com/glpi-project/glpi-agent/releases/ | g
 #
 # Debian Links
 #
-GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent_$AGENT_VERSION-1_all.deb"
-GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-network_$AGENT_VERSION-1_all.deb"
-GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-esx_$AGENT_VERSION-1_all.deb"
-GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-collect_$AGENT_VERSION-1_all.deb"
-GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-deploy_$AGENT_VERSION-1_all.deb"
+GLPI_DEB_AGT_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent_${AGENT_VERSION}-1_all.deb"
+GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-network_${AGENT_VERSION}-1_all.deb"
+GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-esx_${AGENT_VERSION}-1_all.deb"
+GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-collect_${AGENT_VERSION}-1_all.deb"
+GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-deploy_${AGENT_VERSION}-1_all.deb"
 
 #
 # MAC OS Links
 #
 
 # x86_64
-GLPI_MAC_AGT_AMD64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/GLPI-Agent-$AGENT_VERSION_x86_64.pkg"
-#GLPI_MAC_AGT_AMD64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/GLPI-Agent-$AGENT_VERSION_x86_64.dmg"
+GLPI_MAC_AGT_AMD64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/GLPI-Agent-${AGENT_VERSION}_x86_64.pkg"
+#GLPI_MAC_AGT_AMD64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/GLPI-Agent-${AGENT_VERSION}_x86_64.dmg"
 
 # arm64
-GLPI_MAC_AGT_ARM64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/GLPI-Agent-$AGENT_VERSION_arm64.pkg"
-#GLPI_MAC_AGT_ARM64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/GLPI-Agent-$AGENT_VERSION_arm64.dmg"
+GLPI_MAC_AGT_ARM64_PKG="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/GLPI-Agent-${AGENT_VERSION}_arm64.pkg"
+#GLPI_MAC_AGT_ARM64_DMG="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/GLPI-Agent-${AGENT_VERSION}_arm64.dmg"
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # End variables Declaration
