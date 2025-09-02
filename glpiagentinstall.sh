@@ -2,8 +2,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: glpiagentinstall.sh
-#	@versao: 1.0.4
-#	@Data 10 de Junho de 2025
+#	@versao: 1.0.5
+#	@Data 02 de Setembro de 2025
 #	@Copyright: Verdanatech Soluções em TI, 2022
 # --------------------------------------------------------------------------
 # LICENSE
@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Jun 10, 2025"
-TITLE="Verdanadesk GLPi Agent Install - v.1.0.4"
+versionDate="Sep 02, 2025"
+TITLE="Verdanadesk GLPi Agent Install - v.1.0.5"
 BANNER="http://www.verdanatech.com"
 
 comercialMail="comercial@verdanatech.com"
@@ -137,6 +137,17 @@ function soDiscovery(){
 	esac
 
 }
+
+# Requirements 
+which curl &> /dev/null
+if [ $? -ne 0 ]
+then 
+	erroDescription="CURL not found. Please install it"
+	erroDetect
+ fi
+
+
+
 
 #
 # archDiscovery
