@@ -2,8 +2,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: glpiagentinstall.sh
-#	@versao: 1.0.5
-#	@Data 02 de Setembro de 2025
+#	@versao: 1.0.6
+#	@Data 09 de Setembro de 2025
 #	@Copyright: Verdanatech Soluções em TI, 2022
 # --------------------------------------------------------------------------
 # LICENSE
@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Sep 02, 2025"
-TITLE="Verdanadesk GLPi Agent Install - v.1.0.5"
+versionDate="Sep 09, 2025"
+TITLE="Verdanadesk GLPi Agent Install - v.1.0.6"
 BANNER="http://www.verdanatech.com"
 
 comercialMail="comercial@verdanatech.com"
@@ -231,7 +231,7 @@ function discoveryLinuxDistro(){
 	
 			case $VERSION_ID in
 		
-				12 | 11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" | "22.10" | "23.04" | "24.04" | "24.10" | "20.3" | "21.1" | "21.2" | "19.3" )
+				13 | 12 | 11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" | "22.10" | "23.04" | "24.04" | "24.10" | "20.3" | "21.1" | "21.2" | "19.3" )
 
 				echo "GNU/Linux distribution $ID and version $VERSION_ID detected."
 
