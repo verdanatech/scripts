@@ -2,9 +2,9 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: glpiagentinstall.sh
-#	@versao: 1.0.6
-#	@Data 09 de Setembro de 2025
-#	@Copyright: Verdanatech Soluções em TI, 2022
+#	@versao: 1.0.7
+#	@Data 16 de Setembro de 2025
+#	@Copyright: Verdanatech Soluções em TI, 2022 - 2025
 # --------------------------------------------------------------------------
 # LICENSE
 #
@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Sep 09, 2025"
-TITLE="Verdanadesk GLPi Agent Install - v.1.0.6"
+versionDate="Sep 16, 2025"
+TITLE="Verdanadesk GLPi Agent Install - v.1.0.7"
 BANNER="http://www.verdanatech.com"
 
 comercialMail="comercial@verdanatech.com"
@@ -146,9 +146,6 @@ then
 	erroDetect
  fi
 
-
-
-
 #
 # archDiscovery
 #
@@ -227,11 +224,11 @@ function discoveryLinuxDistro(){
 		
 	case $ID in
 
-		debian | ubuntu | linuxmint )
+		debian | ubuntu | linuxmint | zorin)
 	
 			case $VERSION_ID in
 		
-				13 | 12 | 11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" | "22.10" | "23.04" | "24.04" | "24.10" | "20.3" | "21.1" | "21.2" | "19.3" )
+				13 | 12 | 11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" | "22.10" | "23.04" | "24.04" | "24.10" | "20.3" | "21.1" | "21.2" | "19.3" | 17)
 
 				echo "GNU/Linux distribution $ID and version $VERSION_ID detected."
 
@@ -349,7 +346,7 @@ cat > $confPath << EOF ; [ $? -ne 0 ] && erroDetect
 server = $VERDANADESK_SERVER
 local = /tmp
 
-tasks = inventory,deploy,inventory
+tasks = inventory,netdiscovery,netinventory,deploy
 
 delaytime = 3600
 lazy = 0
