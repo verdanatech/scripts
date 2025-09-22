@@ -419,7 +419,7 @@ startInstall ()
 
 			case $ID in
 				
-				debian | ubuntu | linuxmint )
+				debian | ubuntu | linuxmint | zorin )
 
 					echo "Starting..."
 					printLine
