@@ -2,7 +2,7 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: glpiagentinstall.sh
-#	@versao: 1.0.8
+#	@versao: 1.1.0
 #	@Data 29 de Setembro de 2025
 #	@Copyright: Verdanatech Soluções em TI, 2022 - 2025
 # --------------------------------------------------------------------------
@@ -26,7 +26,7 @@
 #
 
 versionDate="Sep 29, 2025"
-TITLE="Verdanadesk GLPi Agent Install - v.1.0.8"
+TITLE="Verdanadesk GLPi Agent Install - v.1.1.0"
 BANNER="http://www.verdanatech.com"
 
 comercialMail="comercial@verdanatech.com"
@@ -46,7 +46,7 @@ GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/
 #
 # Fedora Link
 #
-RH_INSTALLER="https://github.com/glpi-project/glpi-agent/releases/download/1.15/glpi-agent-1.15-linux-installer.pl"
+RH_INSTALLER="https://github.com/glpi-project/glpi-agent/releases/download/1.15/glpi-agent-1.15-1.noarch.rpm"
 
 #
 # MAC OS Links
@@ -522,9 +522,8 @@ startInstall ()
 				fedora)
 				
 					cd /tmp/
-					wget $RH_INSTALLER
-					chmod +x $RH_INSTALLER
-					./$RH_INSTALLER
+					curl -sSL $RH_INSTALLER -o glpi-agent.rpm
+					rmp -i glpi-agent.rpm 
 
 				;;
 
