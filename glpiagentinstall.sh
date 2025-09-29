@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Sep 16, 2025"
-TITLE="Verdanadesk GLPi Agent Install - v.1.0.7"
+versionDate="Sep 29, 2025"
+TITLE="Verdanadesk GLPi Agent Install - v.1.0.8"
 BANNER="http://www.verdanatech.com"
 
 comercialMail="comercial@verdanatech.com"
@@ -46,7 +46,7 @@ GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/
 #
 # Fedora Link
 #
-INSTALLER="https://github.com/glpi-project/glpi-agent/releases/download/1.15/glpi-agent-1.15-linux-installer.pl"
+RH_INSTALLER="https://github.com/glpi-project/glpi-agent/releases/download/1.15/glpi-agent-1.15-linux-installer.pl"
 
 #
 # MAC OS Links
@@ -572,7 +572,7 @@ erroDescription="System administrator privilege is required"
 soDiscovery
 
 # If it is GNU/Linux, check if the distribution is supported
-if [ $SO == Linux  ] && [ $ID != fedora ]
+if [ $SO == Linux  ]
 then
 
 	discoveryLinuxDistro
