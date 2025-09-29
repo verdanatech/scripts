@@ -572,7 +572,7 @@ erroDescription="System administrator privilege is required"
 soDiscovery
 
 # If it is GNU/Linux, check if the distribution is supported
-if [ $SO == Linux  ]
+if [ $SO == Linux  ] && [ $ID != fedora ]
 then
 
 	discoveryLinuxDistro
