@@ -523,7 +523,7 @@ startInstall ()
 				
 					cd /tmp/
 					curl -sSL $RH_INSTALLER -o glpi-agent.rpm
-					rmp -i glpi-agent.rpm 
+					rpm -i glpi-agent.rpm 
 
 				;;
 
