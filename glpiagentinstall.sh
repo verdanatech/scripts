@@ -2,8 +2,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: glpiagentinstall.sh
-#	@versao: 1.0.7
-#	@Data 16 de Setembro de 2025
+#	@versao: 1.0.8
+#	@Data 29 de Setembro de 2025
 #	@Copyright: Verdanatech Soluções em TI, 2022 - 2025
 # --------------------------------------------------------------------------
 # LICENSE
@@ -42,6 +42,11 @@ GLPI_DEB_NET_LINK="https://github.com/glpi-project/glpi-agent/releases/download/
 GLPI_DEB_ESX_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-esx_${AGENT_VERSION}-1_all.deb"
 GLPI_DEB_COL_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-collect_${AGENT_VERSION}-1_all.deb"
 GLPI_DEB_TSK_LINK="https://github.com/glpi-project/glpi-agent/releases/download/$AGENT_VERSION/glpi-agent-task-deploy_${AGENT_VERSION}-1_all.deb"
+
+#
+# Fedora Link
+#
+INSTALLER="https://github.com/glpi-project/glpi-agent/releases/download/1.15/glpi-agent-1.15-linux-installer.pl"
 
 #
 # MAC OS Links
@@ -221,13 +226,14 @@ function discoveryLinuxDistro(){
 	erroDescription="Unable to find out your GNU/Linux distribution."
 	source /etc/os-release ; [ $? -ne 0 ] && erroDetect
 		
+#Debian Based
 	case $ID in
 
-		debian | ubuntu | linuxmint | zorin)
+		debian | ubuntu | linuxmint | zorin | fedora )
 	
 			case $VERSION_ID in
 		
-				13 | 12 | 11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" | "22.10" | "23.04" | "24.04" | "24.10" | "20.3" | "21.1" | "21.2" | "19.3" | 17 | "17.3")
+				13 | 12 | 11 | 10 | 9 | 8 | "18.04" | "18.10" | "19.04" | "19.10" | "20.04" | "20.10" | "21.04" | "21.10" | "22.04" | "22.10" | "23.04" | "24.04" | "24.10" | "20.3" | "21.1" | "21.2" | "19.3" | 17 | "17.3" | 42 )
 
 				echo "GNU/Linux distribution $ID and version $VERSION_ID detected."
 
@@ -339,6 +345,7 @@ function createNewConf(){
 	fi
 
 erroDescription="Error to create Agent Configuration!"
+
 cat > $confPath << EOF ; [ $? -ne 0 ] && erroDetect
 # GLPI agent configuration by Verdanadesk
 
@@ -504,13 +511,22 @@ startInstall ()
 								erroDescription="Error to resolve dependencies"
 								apt-get -f install -y; [ $? -ne 0 ] && erroDetect
 
-							;;
+							;;	
 
 						esac
 
 					done
 
   				;;
+
+				fedora)
+				
+					cd /tmp/
+					wget $RH_INSTALLER
+					chmod +x $RH_INSTALLER
+					./$RH_INSTALLER
+
+				;;
 
 			esac
          
