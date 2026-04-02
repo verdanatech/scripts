@@ -2,8 +2,8 @@
 # -------------------------------------------------------------------------
 # @Programa 
 # 	@name: glpiagentinstall.sh
-#	@versao: 1.1.0
-#	@Data 29 de Setembro de 2025
+#	@versao: 1.1.1
+#	@Data 02 de Abril de 2026
 #	@Copyright: Verdanatech Soluções em TI, 2022 - 2025
 # --------------------------------------------------------------------------
 # LICENSE
@@ -25,8 +25,8 @@
 # Variables Declaration
 #
 
-versionDate="Sep 29, 2025"
-TITLE="Verdanadesk GLPi Agent Install - v.1.1.0"
+versionDate="Apr 02, 2026"
+TITLE="Verdanadesk GLPi Agent Install - v.1.1.1"
 BANNER="http://www.verdanatech.com"
 
 comercialMail="comercial@verdanatech.com"
